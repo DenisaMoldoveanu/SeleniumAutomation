@@ -10,7 +10,7 @@ namespace Exercises.Services
         {
             List<StudentModel> returnedList = new List<StudentModel>();
 
-            foreach(string student in stundentList)
+            foreach (string student in stundentList)
             {
                 string[] fullNameArray = student.Split(' ');
                 int lastIndex = fullNameArray.Length - 1;
@@ -31,14 +31,22 @@ namespace Exercises.Services
         public string GetStudentLastName(StudentModel student)
         {
 
-            if (student.FullName != null &&
-                !student.FullName.Equals(""))
+            try
             {
-                string[] fullNameArray = student.FullName.Split(' ');
-                int lastIndex = fullNameArray.Length - 1;
-                return fullNameArray[lastIndex];
+                if (!student.FullName.Equals(""))
+                {
+                    string[] fullNameArray = student.FullName.Split(' ');
+                    int lastIndex = fullNameArray.Length - 1;
+                    return fullNameArray[lastIndex];
+                }
+
+                else throw new ArgumentException("No full name was set");
             }
-            else throw new ArgumentException("No full name was set");
+            catch (Exception e)
+            {
+                throw new ArgumentException("No full name was set");
+            }
+           
         }
 
         public string GetStudentFirstName(StudentModel student)

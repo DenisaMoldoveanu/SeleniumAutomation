@@ -1,9 +1,5 @@
 ﻿using Exercises.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercises.Data
 {
@@ -13,7 +9,8 @@ namespace Exercises.Data
         {
             QuestionModel firstQuestion = new QuestionModel
             {
-                QuestionName = "",
+                QuestionName = @"Q1 - Which of the following access specifier in C# allows a class to hide its member variables  
+and member functions from other class objects and functions, except a child class within the same application?",
                 QuestionAnswers = new List<AnswerModel>
                 {
                     new AnswerModel { IsCorrect = true, Text = "Protected Internal", Order = "A"},
@@ -25,19 +22,20 @@ namespace Exercises.Data
 
             QuestionModel secondQuestion = new QuestionModel
             {
-                QuestionName = "",
+                QuestionName = @"Q2 - Which of the following is the correct about static member variables of a class?",
                 QuestionAnswers = new List<AnswerModel>
                 {
-                    new AnswerModel { IsCorrect = false, Text = "", Order = "A"},
-                    new AnswerModel { IsCorrect = false, Text = "", Order = "B"},
-                    new AnswerModel { IsCorrect = true, Text = "", Order = "C"},
-                    new AnswerModel { IsCorrect = false, Text = "", Order = "D"},
+                    new AnswerModel { IsCorrect = false, Text = "We can define class members variables as static using the static keyword", Order = "A"},
+                    new AnswerModel { IsCorrect = false, Text = @"When we declare a member of a class as static, it means no matter how
+many objects of the class are created, there is only one copy of the static member" , Order = "B"},
+                    new AnswerModel { IsCorrect = true, Text = "Both of the above", Order = "C"},
+                    new AnswerModel { IsCorrect = false, Text = "None of the above", Order = "D"},
                 }
             };
 
-            QuestionModel thirsQuestion = new QuestionModel
+            QuestionModel thirdQuestion = new QuestionModel
             {
-                QuestionName = "",
+                QuestionName = "Q3 - Which of the following is the default access specifier of a class member variable?",
                 QuestionAnswers = new List<AnswerModel>
                 {
                     new AnswerModel { IsCorrect = false, Text = "Public", Order = "A"},
@@ -51,7 +49,7 @@ namespace Exercises.Data
             {
                 ListOfQuestions = new List<QuestionModel>
                 {
-                    firstQuestion, secondQuestion, thirsQuestion
+                    firstQuestion, secondQuestion, thirdQuestion
                 }
             };
 

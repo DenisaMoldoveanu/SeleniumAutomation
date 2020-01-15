@@ -11,11 +11,12 @@ namespace Exercises
     {
         static void Main(string[] args)
         {
-            //get student full name
-            Console.WriteLine("Please enter your first and last name: ");
+            #region tema sesiunea 1
+            //get student.FullName
+            Console.WriteLine("Please enter you first and last name");
             string studentFullName = Console.ReadLine();
 
-            //using FullName, get first and last name
+            //using FullName, get First Name and Last Name
             StudentModel student = new StudentModel { FullName = studentFullName };
             StudentServices studentServices = new StudentServices();
 
@@ -28,7 +29,7 @@ namespace Exercises
             CourseModel course = new CourseModel { Name = courseName };
 
             //enter teacher
-            Console.WriteLine("Enter teacher name: ");
+            Console.WriteLine("Please enter teacher name:");
             string teacherName = Console.ReadLine();
 
             //associate course to teacher
@@ -37,13 +38,15 @@ namespace Exercises
                 FullName = teacherName,
                 ListOfCourses = new List<CourseModel> { course }
             };
+            #endregion
 
+            #region exercitiu sesiunea 2
             //take quiz
             var quiz = QuizData.GetFirstQuiz();
             int rightAnswers = 0;
 
             Console.WriteLine();
-            Console.WriteLine("Please take the following quiz ");
+            Console.WriteLine("Plese take the following quiz");
 
             for (int i = 0; i < quiz.ListOfQuestions.Count; i++)
             {
@@ -62,12 +65,26 @@ namespace Exercises
                 var isTheCorrectAnswer = quiz.ListOfQuestions[i].QuestionAnswers.FirstOrDefault(
                     x => x.Order.ToLower() == answer.ToLower()).IsCorrect;
 
-                if (isTheCorrectAnswer)
-                    rightAnswers++;
+                if (isTheCorrectAnswer) rightAnswers++;
+
             }
+            #endregion
 
+            //get grade
+            double score = 0;
+            try
+            {
+                score = Math.Round((double)(rightAnswers * 10) / quiz.ListOfQuestions.Count);
+            }
+            catch (DivideByZeroException) { }
+            student.Grade = score;
 
-
+            //print out student information
+            Console.WriteLine();
+            Console.WriteLine(@"Final grade: {0}
+Student: {1}
+Course: {2}
+Teacher: {3}", student.Grade, student.FullName, course.Name, teacher.FullName);
         }
     }
 }
