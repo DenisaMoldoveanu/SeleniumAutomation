@@ -30,6 +30,7 @@ namespace Exercises.Services
 
         public string GetStudentLastName(StudentModel student)
         {
+
             if (student.FullName != null &&
                 !student.FullName.Equals(""))
             {
@@ -44,8 +45,9 @@ namespace Exercises.Services
         {
             if (student.LastName == null)
                 student.LastName = GetStudentLastName(student);
+            student.FirstName = student.FullName.Replace(student.LastName, "").Trim();
 
-            return student.FullName.Replace(student.LastName, "").Trim();
+            return student.FirstName;
         }
     }
 }
