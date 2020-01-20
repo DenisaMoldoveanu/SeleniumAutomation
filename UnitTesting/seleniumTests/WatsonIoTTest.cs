@@ -5,16 +5,18 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Linq;
 
 namespace UnitTesting.seleniumTests
 {
     [TestClass]
-    public class LoginTest
+    public class WatsonIoTTest
     {
         static IWebDriver driver;
         static HomePage home;
         static PopUpPage popUp;
         static LoginPage loginPage;
+        static IoTPage ioTPage;
         static WebDriverWait wait;
 
         [ClassInitialize]
@@ -29,6 +31,7 @@ namespace UnitTesting.seleniumTests
             home = new HomePage(driver);
             popUp = new PopUpPage(driver);
             loginPage = new LoginPage(driver);
+            ioTPage = new IoTPage(driver);
         }
 
         [TestMethod]
@@ -55,17 +58,25 @@ namespace UnitTesting.seleniumTests
         }
 
         [TestMethod]
-        public void TC03_LogOutMyAccount()
+        public void TC03_NavigateToWatsonIoT()
         {
-            home.signOutLink.Click();
-            Assert.IsTrue(home.compareActualMenuList(driver, Constants.EXPECTED_LOGGED_OUT_MENUS));
-            Assert.IsTrue(home.logInToMyIbmButton.Displayed);
+            home.marketplaceMenu.Click();
+            home.iotSubMenu.Click();
+            home.watsoIoTSubMenu.Click();
+            Assert.IsTrue(wait.Until(d => ioTPage.watchVideoButton.Displayed));
         }
 
-        [ClassCleanup]
-        public static void CleanUp()
+        [TestMethod]
+        public void TC04_WatchTheVideo()
         {
-            driver.Quit();
+            ioTPage.watchVideoButton.Click();
+            Assert.IsTrue(wait.Until(d => ioTPage.activeVideoFrame.Displayed));
+            var videoSrc = ioTPage.videoIframe.GetAttribute("src");
+
+            IWebDriver driver2 = new ChromeDriver();
+            driver2.Navigate().GoToUrl(videoSrc);
+            driver2.Quit();
+            ioTPage.closeVideoLink.Click();
         }
     }
 }

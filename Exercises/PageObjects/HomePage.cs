@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +34,21 @@ namespace Exercises.PageObjects
 
         [FindsBy(How = How.LinkText, Using = "Automation (CZ)")]
         public IWebElement automationSubMenu;
+
+        [FindsBy(How = How.LinkText, Using = "Workflow Automation (CZ)")]
+        public IWebElement workflowAutomationSubMenu;
+
+        [FindsBy(How = How.LinkText, Using = "Watson")]
+        public IWebElement watsonSubMenu;
+
+        [FindsBy(How = How.LinkText, Using = "Watson Advertising")]
+        public IWebElement watsoAdvertisingnSubMenu;
+
+        [FindsBy(How = How.LinkText, Using = "Internet of Things (CZ)")]
+        public IWebElement iotSubMenu;
+
+        [FindsBy(How = How.LinkText, Using = "Watson Internet of Things (CZ)")]
+        public IWebElement watsoIoTSubMenu;
 
         public bool compareActualMenuList(IWebDriver driver, List<string> expectedMenus)
         {

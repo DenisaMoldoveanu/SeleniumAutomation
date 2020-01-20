@@ -9,13 +9,15 @@ using System;
 namespace UnitTesting.seleniumTests
 {
     [TestClass]
-    public class LoginTest
+    public class WorkflowAutomationTest
     {
         static IWebDriver driver;
         static HomePage home;
         static PopUpPage popUp;
         static LoginPage loginPage;
         static WebDriverWait wait;
+        static AutomationWorkFlowPage automationWorkflow;
+        static PdfPage pdfPage;
 
         [ClassInitialize]
         public static void Init(TestContext context)
@@ -29,6 +31,8 @@ namespace UnitTesting.seleniumTests
             home = new HomePage(driver);
             popUp = new PopUpPage(driver);
             loginPage = new LoginPage(driver);
+            automationWorkflow = new AutomationWorkFlowPage(driver);
+            pdfPage = new PdfPage(driver);
         }
 
         [TestMethod]
@@ -55,17 +59,20 @@ namespace UnitTesting.seleniumTests
         }
 
         [TestMethod]
-        public void TC03_LogOutMyAccount()
+        public void TC03_NavigateToWorkflowAutomation()
         {
-            home.signOutLink.Click();
-            Assert.IsTrue(home.compareActualMenuList(driver, Constants.EXPECTED_LOGGED_OUT_MENUS));
-            Assert.IsTrue(home.logInToMyIbmButton.Displayed);
+            home.marketplaceMenu.Click();
+            home.automationSubMenu.Click();
+            home.workflowAutomationSubMenu.Click();
+            Assert.AreEqual("Automation - Workflow - Czech Republic | IBM", driver.Title);
         }
 
-        [ClassCleanup]
-        public static void CleanUp()
+        [TestMethod]
+        public void TC04_DownloadPdfFromSlide()
         {
-            driver.Quit();
+            WebUtil.ScrollToElement(driver, automationWorkflow.downloadPdfButton);
+            automationWorkflow.downloadPdfButton.Click();
+            Assert.IsTrue(pdfPage.pdfContent.Displayed);
         }
     }
 }

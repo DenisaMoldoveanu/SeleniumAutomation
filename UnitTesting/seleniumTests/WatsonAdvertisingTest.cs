@@ -5,16 +5,21 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Linq;
 
 namespace UnitTesting.seleniumTests
 {
     [TestClass]
-    public class LoginTest
+    public class WatsonAdvertisingTest
     {
         static IWebDriver driver;
         static HomePage home;
         static PopUpPage popUp;
         static LoginPage loginPage;
+        static WatsonAdvertisingPage watsonAdvertising;
+        static IbmAdvertisingAcceleratorPage ibmAdvertisingAccelerator;
+        static PowerOfPredictionPage powerOfPrediction;
+        static PowerOfPredictionDownloadPage powerOfPredictionDownload;
         static WebDriverWait wait;
 
         [ClassInitialize]
@@ -29,6 +34,10 @@ namespace UnitTesting.seleniumTests
             home = new HomePage(driver);
             popUp = new PopUpPage(driver);
             loginPage = new LoginPage(driver);
+            watsonAdvertising = new WatsonAdvertisingPage(driver);
+            ibmAdvertisingAccelerator = new IbmAdvertisingAcceleratorPage(driver);
+            powerOfPrediction = new PowerOfPredictionPage(driver);
+            powerOfPredictionDownload = new PowerOfPredictionDownloadPage(driver);
         }
 
         [TestMethod]
@@ -55,17 +64,34 @@ namespace UnitTesting.seleniumTests
         }
 
         [TestMethod]
-        public void TC03_LogOutMyAccount()
+        public void TC03_NavigateToWatsonAdvertising()
         {
-            home.signOutLink.Click();
-            Assert.IsTrue(home.compareActualMenuList(driver, Constants.EXPECTED_LOGGED_OUT_MENUS));
-            Assert.IsTrue(home.logInToMyIbmButton.Displayed);
+            home.marketplaceMenu.Click();
+            home.watsonSubMenu.Click();
+            home.watsoAdvertisingnSubMenu.Click();
+            Assert.AreEqual("IBM Watson Advertising | IBM", driver.Title);
         }
 
-        [ClassCleanup]
-        public static void CleanUp()
+        [TestMethod]
+        public void TC04_ClickOnIntroducingAccelerator()
         {
-            driver.Quit();
+            WebUtil.ScrollToElement(driver, watsonAdvertising.introducingAcceleratorSlideButton);
+            watsonAdvertising.introducingAcceleratorSlideButton.Click();
+            wait.Until(d => d.WindowHandles.Count > 1);
+            driver.SwitchTo().Window(driver.WindowHandles.LastOrDefault());
+            Assert.AreEqual("IBM Advertising Accelerator with Watson | IBM", driver.Title);
+        }
+
+        [TestMethod]
+        public void TC05_DownloadEBook()
+        {
+            ibmAdvertisingAccelerator.downoadEBookButton.Click();
+            Assert.AreEqual("https://www.ibm.com/watson-advertising/thought-leadership/the-power-of-prediction", driver.Url);
+            WebUtil.ScrollToElement(driver, powerOfPrediction.downloadButton);
+            powerOfPrediction.downloadButton.Click();
+            wait.Until(d => d.WindowHandles.Count > 2);
+            driver.SwitchTo().Window(driver.WindowHandles.LastOrDefault());
+            Assert.IsTrue(wait.Until(d => powerOfPredictionDownload.downloadForm.Displayed));
         }
     }
 }
