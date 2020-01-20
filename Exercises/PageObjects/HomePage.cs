@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +28,12 @@ namespace Exercises.PageObjects
 
         [FindsBy(How = How.CssSelector, Using = ".ibm-btn-pri.ibm-btn-white.sign-in-btn.ibm-ls-button-trigger")]
         public IWebElement logInToMyIbmButton;
+
+        [FindsBy(How = How.LinkText, Using = "Marketplace")]
+        public IWebElement marketplaceMenu;
+
+        [FindsBy(How = How.LinkText, Using = "Automation (CZ)")]
+        public IWebElement automationSubMenu;
 
         public bool compareActualMenuList(IWebDriver driver, List<string> expectedMenus)
         {

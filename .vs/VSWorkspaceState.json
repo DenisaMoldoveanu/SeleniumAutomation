@@ -5,11 +5,10 @@
     "\\Exercises\\Data",
     "\\Exercises\\Models",
     "\\Exercises\\Services",
-    "\\Exercises\\SessionExcercises\\Week3",
     "\\UnitTesting",
     "\\UnitTesting\\SeleniumTests",
     "\\UnitTesting\\UnitTests"
   ],
-  "SelectedNode": "\\UnitTesting\\SeleniumTests",
+  "SelectedNode": "\\SeleniumAutomation.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -9,7 +9,7 @@ using System;
 namespace UnitTesting.seleniumTests
 {
     [TestClass]
-    public class LoginTest
+    public class SecondTest
     {
         static IWebDriver driver;
         static HomePage home;
@@ -53,18 +53,14 @@ namespace UnitTesting.seleniumTests
             Assert.IsTrue(home.compareActualMenuList(driver, Constants.EXPECTED_LOGGED_IN_MENUS));
         }
 
-        [TestMethod]
-        public void TC03_LogOutMyAccount()
-        {
-            home.signOutLink.Click();
-            Assert.IsTrue(home.compareActualMenuList(driver, Constants.EXPECTED_LOGGED_OUT_MENUS));
-            Assert.IsTrue(home.logInToMyIbmButton.Displayed);
-        }
 
-        [ClassCleanup]
-        public static void CleanUp()
+        [TestMethod]
+        public void TC03_NavigateToWorkflowAutomation()
         {
-            driver.Quit();
-        }
+            home.marketplaceMenu.Click();
+            home.automationSubMenu.Click();
+
+
+            Assert.AreEqual("Automation - Workflow - Czech Republic | IBM", driver.Title);        }
     }
 }
