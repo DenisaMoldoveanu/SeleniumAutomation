@@ -60,5 +60,11 @@ namespace UnitTesting.seleniumTests
             Assert.IsTrue(home.compareActualMenuList(driver, Constants.EXPECTED_LOGGED_OUT_MENUS));
             Assert.IsTrue(home.logInToMyIbmButton.Displayed);
         }
+
+        [ClassCleanup]
+        public static void CleanUp()
+        {
+            driver.Quit();
+        }
     }
 }
